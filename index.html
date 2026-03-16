@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Capture & Redirect Flow Explanation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    code {
+      color: #c7254e;
+      background: #f9f2f4;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Email Capture → Redirect → Follow-Up Flow</h1>
+
+  <p>This document explains the full email capture and redirect system for your website. Your coder will know exactly what it does, why, and how to implement it. You will provide the actual sales page link later.</p>
+
+  <section>
+    <h2>1. Purpose of the Code</h2>
+    <ul>
+      <li><strong>Capture visitor emails:</strong> immediately after they show interest using a micro-commitment step.</li>
+      <li><strong>Redirect after submission:</strong> send visitors to the next step (sales page, upsell, or main offer).</li>
+      <li><strong>Feed emails into your platform:</strong> stored for future automation (Mailchimp, ConvertKit, Selar, etc.).</li>
+      <li><strong>Maintain user focus:</strong> ensures visitor attention is not diverted before they commit.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>2. Core Components of the Code</h2>
+
+    <h3>A. Micro-commitment button</h3>
+    <p><strong>Purpose:</strong> Gives the visitor a small action they can take immediately, increasing engagement.</p>
+    <p><strong>Behavior:</strong> Visitor clicks a button like <code>Get My 21-Day Study System</code> which triggers the email popup.</p>
+    <pre><code>&lt;button id="getNowBtn"&gt;Get My 21-Day Study System&lt;/button&gt;</code></pre>
+
+    <h3>B. Email capture popup</h3>
+    <p><strong>Purpose:</strong> Collect the visitor’s email before redirecting them to the next step.</p>
+    <p><strong>Behavior:</strong> Shows a modal popup with a simple form (email input + submit). Only essential info is requested.</p>
+    <pre><code>&lt;div id="emailPopup" style="display:none;"&gt;
+  &lt;form id="emailForm"&gt;
+    &lt;input type="email" name="email" placeholder="Enter your email" required&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+    <p><strong>Functionality:</strong></p>
+    <ol>
+      <li>Email is sent to your platform when "submit" is clicked.</li>
+      <li>Visitor is redirected automatically after submission.</li>
+    </ol>
+
+    <h3>C. Submit handler & redirect</h3>
+    <p><strong>Purpose:</strong> Connect the email capture to the next step.</p>
+    <p><strong>Behavior:</strong> Submits email using AJAX/API and redirects visitor to next page.</p>
+    <pre><code>document.getElementById('emailForm').addEventListener('submit', function(e){
+  e.preventDefault(); // prevent default form submission
+  let email = this.email.value;
+  
+  // Send email to your platform (example with API call)
+  // fetch('https://your-email-platform.com/add', { method:'POST', body: { email } });
+  
+  // Redirect after successful submission
+  window.location.href = "https://yhuniquemedia-code.github.io/study-habit-systems/"; // <-- Replace this
+});</code></pre>
+
+    <h3>D. Why it’s done this way</h3>
+    <ul>
+      <li><strong>Micro-commitment first:</strong> reduces friction and increases email submissions.</li>
+      <li><strong>Popup form for focus:</strong> keeps email capture separate, prevents distraction.</li>
+      <li><strong>Automatic redirect:</strong> smooth flow from interest → email → next step.</li>
+      <li><strong>Future automation ready:</strong> enables nurture emails, upsells, cart abandonment follow-ups.</li>
+    </ul>
+
+    <h3>E. Placement on the page</h3>
+    <ul>
+      <li>Micro-commitment button: above-the-fold.</li>
+      <li>Email popup: hidden initially, triggered by button click.</li>
+      <li>Redirect URL: dynamic, inserted in JS code after submission.</li>
+    </ul>
+
+    <h3>F. What the coder needs to do</h3>
+    <ol>
+      <li>Place the button in the desired spot in HTML.</li>
+      <li>Add the popup form somewhere in HTML (hidden with CSS).</li>
+      <li>Add JS code to trigger popup, submit email, and redirect after submission.</li>
+      <li>Make the redirect URL dynamic for easy updates.</li>
+    </ol>
+
+  </section>
+
+  <section>
+    <h2>✅ Summary</h2>
+    <ul>
+      <li>Efficient lead capture.</li>
+      <li>Keeps visitors focused on the offer.</li>
+      <li>Automatic redirect after submission.</li>
+      <li>Sets up future email marketing funnel and upsells.</li>
+    </ul>
+  </section>
+
+</body>
+</html>
