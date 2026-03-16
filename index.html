@@ -5,74 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>21-Day Study Habit System</title>
 <style>
-  /* Basic Reset */
-  * { margin:0; padding:0; box-sizing:border-box; }
-
   body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f7f1ff, #cfd8f7);
-    height: 100vh;
+    background: #f0f4f8;
+    margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    height: 100vh;
+    overflow-x: hidden;
   }
 
   .container {
     text-align: center;
+    padding: 20px;
+    max-width: 700px;
     background: white;
-    padding: 50px 30px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    max-width: 500px;
-    width: 90%;
-    position: relative;
-    z-index: 2;
   }
 
   h1 {
-    font-size: 2em;
-    color: #4a148c;
+    font-size: 2rem;
     margin-bottom: 20px;
+    color: #222;
   }
 
   p {
-    font-size: 1.1em;
-    color: #333;
+    font-size: 1.1rem;
     margin-bottom: 30px;
+    line-height: 1.6;
+    color: #555;
   }
 
-  /* Button */
   #getNowBtn {
-    background: #ff6f00;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    background: #ff6b6b;
     color: white;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 15px 40px;
     border: none;
-    border-radius: 50px;
+    border-radius: 12px;
     cursor: pointer;
+    font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    animation: pulse 1.5s infinite;
   }
 
   #getNowBtn:hover {
     transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
   }
 
-  /* Overlay & Popup */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Overlay */
   #overlay {
     display: none;
     position: fixed;
-    top:0; left:0; width:100%; height:100%;
+    top:0; left:0;
+    width:100%; height:100%;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(3px);
     z-index: 1;
   }
 
+  /* Popup */
   #emailPopup {
-    display: none;
     position: fixed;
     top:50%;
     left:50%;
@@ -83,95 +85,101 @@
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     z-index: 2;
     transition: all 0.4s ease;
+    opacity: 0;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
   }
 
   #emailPopup.show {
     transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  #emailPopup h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #222;
   }
 
   #emailPopup input[type="email"] {
-    padding: 12px;
-    width: 100%;
+    width: 80%;
+    padding: 12px 10px;
     margin-bottom: 20px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-size: 1em;
+    font-size: 1rem;
   }
 
   #emailPopup button {
-    background: #4a148c;
-    color: white;
     padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 10px;
     border: none;
-    border-radius: 50px;
-    font-size: 1em;
+    background: #1dd1a1;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
   }
 
   #emailPopup button:hover {
     transform: scale(1.05);
-  }
-
-  /* Small animation for heading */
-  h1 {
-    animation: bounce 1s infinite alternate;
-  }
-
-  @keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>End Homework Battles in 21 Days!</h1>
-  <p>Get your child to study willingly with the proven 21-Day Study Habit System.</p>
+  <h1>End the Homework Battles in 21 Days!</h1>
+  <p>Discover the 21-Day Study Habit System that helps Nigerian parents get their children to study willingly — without shouting, threats, or punishment.</p>
   <button id="getNowBtn">Get My 21-Day Study System</button>
 </div>
 
+<!-- Overlay -->
 <div id="overlay"></div>
 
+<!-- Email Popup -->
 <div id="emailPopup">
+  <h2>Enter Your Email</h2>
   <form id="emailForm">
     <input type="email" name="email" placeholder="Enter your email" required>
-    <button type="submit">Send Me Access</button>
+    <br>
+    <button type="submit">Submit</button>
   </form>
 </div>
 
 <script>
-const getNowBtn = document.getElementById('getNowBtn');
-const emailPopup = document.getElementById('emailPopup');
-const overlay = document.getElementById('overlay');
-const emailForm = document.getElementById('emailForm');
+  const getNowBtn = document.getElementById('getNowBtn');
+  const emailPopup = document.getElementById('emailPopup');
+  const overlay = document.getElementById('overlay');
+  const emailForm = document.getElementById('emailForm');
 
-// Show popup
-getNowBtn.addEventListener('click', () => {
-  emailPopup.classList.add('show');
-  overlay.style.display = 'block';
-});
+  // Show popup on button click
+  getNowBtn.addEventListener('click', () => {
+    emailPopup.classList.add('show');
+    overlay.style.display = 'block';
+  });
 
-// Hide popup if overlay clicked
-overlay.addEventListener('click', () => {
-  emailPopup.classList.remove('show');
-  overlay.style.display = 'none';
-});
+  // Close popup if overlay clicked
+  overlay.addEventListener('click', () => {
+    emailPopup.classList.remove('show');
+    overlay.style.display = 'none';
+  });
 
-// Form submission
-emailForm.addEventListener('submit', function(e){
-  e.preventDefault();
-  const email = this.email.value;
+  // Handle form submission
+  emailForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = this.email.value;
 
-  // TODO: send email to your email platform here
-  console.log('Email submitted:', email);
+    // TODO: Send email to your platform (Mailchimp, ConvertKit, Selar, etc.)
+    // Example:
+    // fetch('https://your-email-platform.com/add', { method:'POST', body: { email } });
 
-  // ===== REPLACE THIS LINK WITH YOUR SALES PAGE =====
-  window.location.href = "https://yhuniquemedia-code.github.io/study-habit-systems/";
-  // ===================================================
-});
+    // Redirect to your sales page
+    window.location.href = "https://yhuniquemedia-code.github.io/study-habit-systems/"; // <-- REPLACE with your real sales page link
+  });
 </script>
 
 </body>
-</html> 
+</html>
